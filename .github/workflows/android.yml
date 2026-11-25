@@ -8,6 +8,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Faylları qovluqlara yerləşdir
+        run: |
+          mkdir -p www assets
+          for f in index.html manifest.webmanifest sw.js icon-192.png icon-512.png; do
+            if [ -f "$f" ]; then mv "$f" www/; fi
+          done
+          for f in icon-only.png splash.png; do
+            if [ -f "$f" ]; then mv "$f" assets/; fi
+          done
+          ls www assets
       - uses: actions/setup-node@v4
         with:
           node-version: 22
